@@ -15,7 +15,18 @@ import com.example.medlife.models.MedicationDto
 
 internal class MedicationDtoRecyclerAdapter(private val context : Context, private val dataSet: ArrayList<MedicationDto>) :
     RecyclerView.Adapter<MedicationDtoRecyclerAdapter.ViewHolder>() {
-        internal inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+
+    private lateinit var mListener : onItemClickListener
+
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener) {
+        mListener = listener
+    }
+
+    internal inner class ViewHolder(view: View, listener: onItemClickListener) : RecyclerView.ViewHolder(view){
             val nameView            : TextView
             val iconView            : ImageView
             val dosageView          : TextView
@@ -28,11 +39,17 @@ internal class MedicationDtoRecyclerAdapter(private val context : Context, priva
                 dosageView          = view.findViewById(R.id.medication_dosage_text)
                 frequencyView       = view.findViewById(R.id.medication_frequency_text)
                 maxTakingDaysView   = view.findViewById(R.id.max_taking_days_text)
+
+                view.setOnClickListener{
+                    listener.onItemClick(adapterPosition)
+                }
             }
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.medication_row, parent, false))
+        var view = LayoutInflater.from(parent.context).inflate(R.layout.medication_row, parent, false);
+
+        return  ViewHolder(view, mListener);
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {

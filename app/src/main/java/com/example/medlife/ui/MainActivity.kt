@@ -14,9 +14,6 @@ import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
-    //private lateinit var medicationDtoRecyclerAdapter: MedicationDtoRecyclerAdapter
-    private val medicationsList : ArrayList<MedicationDto> = arrayListOf()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity);
@@ -26,19 +23,4 @@ class MainActivity : AppCompatActivity() {
         //init()
         //getMedications()
     }
-
-    //private fun init(){
-    //    medicationDtoRecyclerAdapter    = MedicationDtoRecyclerAdapter(this, medicationsList)
-//
-    //    val recyclerView: RecyclerView  = findViewById(R.id.medication_recycler_view)
-    //    recyclerView.layoutManager      = LinearLayoutManager(this)
-    //    recyclerView.adapter            = medicationDtoRecyclerAdapter
-    //}
-//
-    //private fun getMedications(){
-    //    // TODO
-    //    medicationsList.clear()
-    //    medicationsList.addAll(MedicationRepository.getMedicationArray())
-    //    medicationDtoRecyclerAdapter.notifyDataSetChanged()
-    //}
 }

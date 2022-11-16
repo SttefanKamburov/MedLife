@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="193dp"
+        android:layout_height="131dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.053"
+        app:srcCompat="@drawable/pill_default_image"/>
+
+    <EditText
+        android:id="@+id/medication_popup_name_edit_text"
+        android:layout_width="189dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:autofillHints=""
+        android:background="@drawable/edit_text_background"
+        android:clickable="true"
+        android:ems="10"
+        android:hint="@string/txt_medication_name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/txt_medication_name"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/medication_popup_dosage_edit_text"
+        android:layout_width="189dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:autofillHints=""
+        android:background="@drawable/edit_text_background"
+        android:clickable="true"
+        android:ems="10"
+        android:hint="@string/txt_medication_dosage"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/txt_medication_dosage"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medication_popup_name_edit_text"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/medication_popup_frequency_edit_text"
+        android:layout_width="189dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:autofillHints=""
+        android:background="@drawable/edit_text_background"
+        android:clickable="true"
+        android:ems="10"
+        android:hint="@string/txt_medication_frequency"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/txt_medication_frequency"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medication_popup_dosage_edit_text"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/medication_popup_taking_days_edit_text"
+        android:layout_width="189dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:autofillHints=""
+        android:background="@drawable/edit_text_background"
+        android:clickable="true"
+        android:ems="10"
+        android:hint="@string/txt_max_taking_days"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/txt_max_taking_days"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medication_popup_frequency_edit_text"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/medication_popup_ok_button"
+        android:layout_width="145dp"
+        android:layout_height="62dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/txt_ok_cps_on"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/medication_popup_cancel_button"
+        android:layout_width="145dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/txt_cancel_cps_on"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/medication_edit_icon_view"
         android:layout_width="193dp"
         android:layout_height="131dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/pill_default_image"/>
 
     <EditText
-        android:id="@+id/medication_popup_name_edit_text"
+        android:id="@+id/medication_edit_name_view"
         android:layout_width="189dp"
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
@@ -34,11 +34,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/medication_edit_icon_view"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/medication_popup_dosage_edit_text"
+        android:id="@+id/medication_edit_dosage_view"
         android:layout_width="189dp"
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
@@ -54,11 +54,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medication_popup_name_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/medication_edit_name_view"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/medication_popup_frequency_edit_text"
+        android:id="@+id/medication_edit_frequency_view"
         android:layout_width="189dp"
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
@@ -74,11 +74,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medication_popup_dosage_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/medication_edit_dosage_view"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/medication_popup_taking_days_edit_text"
+        android:id="@+id/medication_edit_taking_days_view"
         android:layout_width="189dp"
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
@@ -94,7 +94,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medication_popup_frequency_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/medication_edit_frequency_view"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button

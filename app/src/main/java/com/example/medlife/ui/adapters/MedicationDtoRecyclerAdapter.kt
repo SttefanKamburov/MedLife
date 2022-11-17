@@ -11,9 +11,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.medlife.R
-import com.example.medlife.models.MedicationDto
+import com.example.medlife.models.Medication
 
-internal class MedicationDtoRecyclerAdapter(private val context : Context, private val dataSet: ArrayList<MedicationDto>) :
+internal class MedicationDtoRecyclerAdapter(private val context : Context, private val dataSet: ArrayList<Medication>) :
     RecyclerView.Adapter<MedicationDtoRecyclerAdapter.ViewHolder>() {
 
     private lateinit var mListener : onItemClickListener

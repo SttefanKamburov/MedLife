@@ -29,7 +29,6 @@
         android:hint="@string/txt_medication_name"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="@string/txt_medication_name"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +48,6 @@
         android:hint="@string/txt_medication_dosage"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="@string/txt_medication_dosage"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +67,6 @@
         android:hint="@string/txt_medication_frequency"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="@string/txt_medication_frequency"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +86,6 @@
         android:hint="@string/txt_max_taking_days"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="@string/txt_max_taking_days"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,5 +116,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/delete_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        android:contentDescription="@string/txt_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

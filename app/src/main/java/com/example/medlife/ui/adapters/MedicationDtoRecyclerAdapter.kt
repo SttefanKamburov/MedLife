@@ -29,16 +29,10 @@ internal class MedicationDtoRecyclerAdapter(private val context : Context, priva
     internal inner class ViewHolder(view: View, listener: onItemClickListener) : RecyclerView.ViewHolder(view){
             val nameView            : TextView
             val iconView            : ImageView
-            val dosageView          : TextView
-            val frequencyView       : TextView
-            val maxTakingDaysView   : TextView
 
             init {
                 iconView            = view.findViewById(R.id.medication_icon)
                 nameView            = view.findViewById(R.id.medication_name_text)
-                dosageView          = view.findViewById(R.id.medication_dosage_text)
-                frequencyView       = view.findViewById(R.id.medication_frequency_text)
-                maxTakingDaysView   = view.findViewById(R.id.max_taking_days_text)
 
                 view.setOnClickListener{
                     listener.onItemClick(adapterPosition)
@@ -54,9 +48,6 @@ internal class MedicationDtoRecyclerAdapter(private val context : Context, priva
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.nameView.text            = dataSet[position].Name
-        viewHolder.dosageView.text          = dataSet[position].Dosage
-        viewHolder.frequencyView.text       = dataSet[position].TakingFrequency
-        viewHolder.maxTakingDaysView.text   = dataSet[position].MaxTakingDays.toString()
 
         Glide.with(context).load(R.drawable.pill_default_image)
             .error(R.drawable.pill_default_image)

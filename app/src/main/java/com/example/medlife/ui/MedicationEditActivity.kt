@@ -10,6 +10,7 @@ import com.example.medlife.R
 import com.example.medlife.Utils
 import com.example.medlife.models.Medication
 import com.example.medlife.repository.ApplicationDb
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MedicationEditActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -20,6 +21,7 @@ class MedicationEditActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var maxTakingDaysView  : EditText
     private lateinit var cancelButton       : Button
     private lateinit var okButton           : Button
+    private lateinit var deleteFab          : FloatingActionButton
 
     private var currentMedication           : Medication? = null
     private var isEdit                      : Boolean     = false
@@ -47,9 +49,11 @@ class MedicationEditActivity : AppCompatActivity(), View.OnClickListener {
         maxTakingDaysView   = findViewById(R.id.medication_edit_taking_days_view)
         cancelButton        = findViewById(R.id.medication_popup_cancel_button)
         okButton            = findViewById(R.id.medication_popup_ok_button)
+        deleteFab           = findViewById(R.id.delete_fab)
 
         cancelButton.setOnClickListener(this)
         okButton.setOnClickListener(this)
+        deleteFab.setOnClickListener(this)
     }
 
     private fun setData(){
@@ -64,6 +68,21 @@ class MedicationEditActivity : AppCompatActivity(), View.OnClickListener {
             addEditMedication()
         else if (v?.id == cancelButton.id)
             onBackPressed()
+        else if (v?.id == deleteFab.id)
+            deleteMedication()
+    }
+
+    private fun deleteMedication(){
+        Thread {
+            val db = ApplicationDb.getInstance(applicationContext)
+
+            db!!.medicationDao().delete(currentMedication!!)
+
+            runOnUiThread {
+                setResult(RESULT_OK)
+                finish()
+            }
+        }.start()
     }
 
     private fun addEditMedication(){

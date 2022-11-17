@@ -7,6 +7,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.medlife.models.Medication
+import com.example.medlife.models.MedicationDate
 import java.security.AccessControlContext
 
 @Database(entities = [Medication::class], version = 1)
@@ -42,5 +43,6 @@ abstract class ApplicationDb : RoomDatabase() {
         }
     }
 
-    public abstract fun medicationDao() : MedicationDao
+    abstract fun medicationDao() : MedicationDao
+    abstract fun medicationDateDao() : MedicationDate
 }

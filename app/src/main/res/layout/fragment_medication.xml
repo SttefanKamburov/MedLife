@@ -10,11 +10,12 @@
             android:layout_height       ="match_parent"/>
 
         <Button
-            android:id                    ="@+id/add_medication_btn"
-            android:layout_width          ="wrap_content"
-            android:layout_height         ="wrap_content"
-            android:text                  ="@string/add_medication"
-            android:layout_centerInParent ="true"
-            android:visibility            ="gone"/>
+            android:id="@+id/add_medication_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="306dp"
+            android:text="@string/add_medication" />
 
 </RelativeLayout>

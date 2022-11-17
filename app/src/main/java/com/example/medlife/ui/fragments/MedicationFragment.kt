@@ -59,7 +59,7 @@ class MedicationFragment : Fragment() {
             if(activity != null){
                 medicationsList.addAll(ApplicationDb.getInstance(activity as Context)!!.medicationDao().getAll())
                 activity?.runOnUiThread {
-                    addMedicationBtn.visibility = if( medicationsList.size > 0 ) View.GONE else View.VISIBLE
+                    addMedicationBtn.visibility = View.VISIBLE
                     medicationsAdapter.notifyDataSetChanged()
                 }
             }

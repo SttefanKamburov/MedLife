@@ -24,29 +24,4 @@
         android:textColor           ="@color/black"
         android:fontFamily          ="sans-serif-medium"
         android:textSize            ="16sp"/>
-
-    <TextView
-        android:id                  ="@+id/medication_dosage_text"
-        android:layout_width        ="wrap_content"
-        android:layout_height       ="wrap_content"
-        android:layout_marginStart  ="8dp"
-        android:textColor           ="@color/black"
-        android:textSize            ="14sp"/>
-
-    <TextView
-        android:id                  ="@+id/medication_frequency_text"
-        android:layout_width        ="wrap_content"
-        android:layout_height       ="wrap_content"
-        android:layout_marginStart  ="8dp"
-        android:textColor           ="@color/black"
-        android:textSize            ="14sp"/>
-
-    <TextView
-        android:id                  ="@+id/max_taking_days_text"
-        android:layout_width        ="wrap_content"
-        android:layout_height       ="wrap_content"
-        android:layout_marginStart  ="8dp"
-        android:textColor           ="@color/black"
-        android:textSize            ="14sp"/>
-
 </LinearLayout>

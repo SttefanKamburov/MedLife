@@ -1,28 +1,27 @@
-package com.example.medlife
+package com.example.medlife.ui.fragments
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.medlife.R
 import com.example.medlife.models.Medication
 import com.example.medlife.repository.ApplicationDb
-import com.example.medlife.repository.MedicationDao
-import com.example.medlife.ui.MedicationEditActivity
+import com.example.medlife.ui.MainActivity
 import com.example.medlife.ui.adapters.MedicationDtoRecyclerAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MedicationFragment : Fragment() {
 
     private val medicationsList : ArrayList<Medication> = arrayListOf()
+
     private lateinit var medicationsAdapter: MedicationDtoRecyclerAdapter
+    private lateinit var addMedicationBtn : Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,27 +33,36 @@ class MedicationFragment : Fragment() {
         medicationsAdapter.setOnItemClickListener(object  : MedicationDtoRecyclerAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
                 activity?.let{
-                    val intent = Intent(requireContext(), MedicationEditActivity::class.java)
-                    intent.putExtra("medication", medicationsList[position])
-                    it.startActivity(intent)
+                    (activity as MainActivity).goToAddEditMedication(medicationsList[position])
                 }
-                getMedications(view.context)
             }
         })
+        addMedicationBtn                = view.findViewById(R.id.add_medication_btn)
+        addMedicationBtn.setOnClickListener {
+            activity?.let {
+                (activity as MainActivity).goToAddEditMedication(null)
+            }
+        }
+
         val recyclerView: RecyclerView  = view.findViewById(R.id.medication_fragment_recycler_view)
         recyclerView.layoutManager      = LinearLayoutManager(activity)
         recyclerView.adapter            = medicationsAdapter
 
-        getMedications(view.context)
+        getMedications()
 
         return view
     }
 
-    private fun getMedications(context: Context){
-        this.lifecycleScope.launch(context = Dispatchers.IO){
+    fun getMedications(){
+        Thread {
             medicationsList.clear()
-            medicationsList.addAll(ApplicationDb.getInstance(context)!!.medicationDao().getAll())
-        }
-        medicationsAdapter.notifyDataSetChanged()
+            if(activity != null){
+                medicationsList.addAll(ApplicationDb.getInstance(activity as Context)!!.medicationDao().getAll())
+                activity?.runOnUiThread {
+                    addMedicationBtn.visibility = if( medicationsList.size > 0 ) View.GONE else View.VISIBLE
+                    medicationsAdapter.notifyDataSetChanged()
+                }
+            }
+        }.start()
     }
 }

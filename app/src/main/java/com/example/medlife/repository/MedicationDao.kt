@@ -1,10 +1,6 @@
 package com.example.medlife.repository
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.medlife.models.Medication
 
 @Dao
@@ -21,7 +17,7 @@ interface MedicationDao {
     @Update
     fun update(medication: Medication)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(medication: Medication)
 
     @Delete

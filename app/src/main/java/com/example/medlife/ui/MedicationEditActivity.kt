@@ -67,25 +67,17 @@ class MedicationEditActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun addEditMedication(){
+        currentMedication!!.Name = nameView.text.toString()
+        currentMedication!!.Dosage = dosageView.text.toString()
+        currentMedication!!.TakingFrequency = frequencyView.text.toString()
+        currentMedication!!.MaxTakingDays = maxTakingDaysView.text.toString().toInt()
+
         Thread {
             val db = ApplicationDb.getInstance(applicationContext)
             if (isEdit) {
-                currentMedication!!.Name = nameView.text.toString()
-                currentMedication!!.Dosage = dosageView.text.toString()
-                currentMedication!!.TakingFrequency = frequencyView.text.toString()
-                currentMedication!!.MaxTakingDays = maxTakingDaysView.text.toString().toInt()
                 db!!.medicationDao().update(currentMedication!!)
             } else {
-                db!!.medicationDao().insert(
-                    Medication(
-                        0,
-                        nameView.text.toString(),
-                        "",
-                        dosageView.text.toString(),
-                        frequencyView.text.toString(),
-                        maxTakingDaysView.text.toString().toInt()
-                    )
-                )
+                db!!.medicationDao().insert(currentMedication!!)
             }
 
             runOnUiThread {

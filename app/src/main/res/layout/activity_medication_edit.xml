@@ -1,134 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/medication_edit_icon_view"
-        android:layout_width="193dp"
-        android:layout_height="131dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053"
-        app:srcCompat="@drawable/pill_default_image"/>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id              ="@+id/appbar_layout"
+        android:layout_width    ="match_parent"
+        android:layout_height   ="wrap_content">
 
-    <EditText
-        android:id="@+id/medication_edit_name_view"
-        android:layout_width="189dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:autofillHints=""
-        android:background="@drawable/edit_text_background"
-        android:clickable="true"
-        android:ems="10"
-        android:hint="@string/txt_medication_name"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medication_edit_icon_view"
-        app:layout_constraintVertical_bias="0.0" />
+        <include layout="@layout/toolbar_layout"/>
 
-    <EditText
-        android:id="@+id/medication_edit_dosage_view"
-        android:layout_width="189dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:autofillHints=""
-        android:background="@drawable/edit_text_background"
-        android:clickable="true"
-        android:ems="10"
-        android:hint="@string/txt_medication_dosage"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medication_edit_name_view"
-        app:layout_constraintVertical_bias="0.0" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <EditText
-        android:id="@+id/date_to_edit_text"
-        android:layout_width="189dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:autofillHints=""
-        android:background="@drawable/edit_text_background"
-        android:clickable="true"
-        android:ems="10"
-        android:hint="@string/txt_medication_frequency"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medication_edit_dosage_view"
-        app:layout_constraintVertical_bias="0.0" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/appbar_layout">
 
-    <EditText
-        android:id="@+id/time_to_edit_txt"
-        android:layout_width="189dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:autofillHints=""
-        android:background="@drawable/edit_text_background"
-        android:clickable="true"
-        android:ems="10"
-        android:hint="@string/txt_max_taking_days"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_to_edit_text"
-        app:layout_constraintVertical_bias="0.0" />
+        <LinearLayout
+            android:layout_width        ="match_parent"
+            android:layout_height       ="wrap_content"
+            android:orientation         ="vertical"
+            android:layout_marginStart  ="16dp"
+            android:layout_marginEnd    ="16dp">
+
+            <ImageView
+                android:id                  ="@+id/medication_edit_icon_view"
+                android:layout_width        ="120dp"
+                android:layout_height       ="120dp"
+                android:src                 ="@drawable/pill_default_image"
+                android:layout_gravity      ="center"
+                android:layout_marginTop    ="16dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width        ="match_parent"
+                android:layout_height       ="wrap_content"
+                android:layout_marginTop    ="16dp"
+                android:hint                ="@string/txt_medication_name">
+
+                <EditText
+                    android:id              ="@+id/name_edt"
+                    android:layout_width    ="match_parent"
+                    android:layout_height   ="wrap_content"
+                    android:imeOptions      ="actionNext"
+                    android:nextFocusDown   ="@id/dosage_edt"
+                    android:inputType       ="textCapSentences"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width        ="match_parent"
+                android:layout_height       ="wrap_content"
+                android:layout_marginTop    ="16dp"
+                android:hint                ="@string/txt_medication_dosage">
+
+                <EditText
+                    android:id              ="@+id/dosage_edt"
+                    android:layout_width    ="match_parent"
+                    android:layout_height   ="wrap_content"
+                    android:imeOptions      ="actionNext"
+                    android:nextFocusDown   ="@id/frequency_edt"
+                    android:inputType       ="textCapSentences"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width        ="match_parent"
+                android:layout_height       ="wrap_content"
+                android:layout_marginTop    ="16dp"
+                android:hint                ="@string/txt_medication_frequency">
+
+                <EditText
+                    android:id              ="@+id/frequency_edt"
+                    android:layout_width    ="match_parent"
+                    android:layout_height   ="wrap_content"
+                    android:imeOptions      ="actionNext"
+                    android:nextFocusDown   ="@id/max_taking_days_edt"
+                    android:inputType       ="textCapSentences"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width        ="match_parent"
+                android:layout_height       ="wrap_content"
+                android:layout_marginTop    ="16dp"
+                android:hint                ="@string/txt_max_taking_days">
+
+                <EditText
+                    android:id              ="@+id/max_taking_days_edt"
+                    android:layout_width    ="match_parent"
+                    android:layout_height   ="wrap_content"
+                    android:imeOptions      ="actionDone"
+                    android:inputType       ="number"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:layout_width                ="match_parent"
+        android:layout_height               ="80dp"
+        android:layout_alignParentBottom    ="true"
+        android:background                  ="@drawable/white_transparent_gradient"/>
 
     <Button
-        android:id="@+id/medication_popup_ok_button"
-        android:layout_width="145dp"
-        android:layout_height="62dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/txt_ok_cps_on"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        style                               ="@style/MainButton"
+        android:id                          ="@+id/add_edit_btn"
+        android:layout_alignParentBottom    ="true"
+        android:text                        ="@string/add"/>
 
-    <Button
-        android:id="@+id/medication_popup_cancel_button"
-        android:layout_width="145dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/txt_cancel_cps_on"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/delete_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:clickable="true"
-        android:contentDescription="@string/txt_delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

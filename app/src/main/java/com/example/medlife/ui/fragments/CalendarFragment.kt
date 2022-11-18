@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.medlife.R
 import com.example.medlife.models.MedicationDate
+import com.example.medlife.ui.activities.MainActivity
 import com.example.medlife.ui.adapters.CalendarRecyclerAdapter
 
 class CalendarFragment : Fragment(), View.OnClickListener {
@@ -51,7 +52,8 @@ class CalendarFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-
+        if (v?.id == addForDayBtn.id && activity != null)
+            (activity as MainActivity).showBottomSheet()
     }
 
     private fun getData(year : Int, month : Int, dayOfMonth : Int) {

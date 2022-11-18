@@ -34,4 +34,7 @@
     <string name="please_enter_dosage">Please enter dosage</string>
     <string name="please_enter_frequency">Please enter frequency</string>
     <string name="please_enter_max_taking_days">Please enter maximum taking days</string>
+    <string name="take_photo">Take photo</string>
+    <string name="choose_from_gallery">Choose from gallery</string>
+    <string name="all_medications">All medications</string>
 </resources>

@@ -71,7 +71,6 @@
         android:id              ="@+id/bottom_sheet_dim_view"
         android:layout_width    ="match_parent"
         android:layout_height   ="match_parent"
-        android:elevation       ="8dp"
         android:background      ="#60000000"
         android:clickable       ="true"
         android:focusable       ="true"
@@ -107,6 +106,16 @@
                     android:layout_height   ="6dp"
                     android:background      ="@drawable/bottom_sheet_handle"
                     android:layout_gravity  ="center"/>
+
+                <TextView
+                    android:layout_width    ="match_parent"
+                    android:layout_height   ="wrap_content"
+                    android:text            ="@string/all_medications"
+                    android:layout_marginTop="12dp"
+                    android:gravity         ="center"
+                    android:textColor       ="@color/black"
+                    android:fontFamily      ="sans-serif-medium"
+                    android:textSize        ="18sp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id                  ="@+id/all_medications_recyclerview"

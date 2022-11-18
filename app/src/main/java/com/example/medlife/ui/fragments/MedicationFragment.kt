@@ -61,4 +61,6 @@ class MedicationFragment : Fragment() {
             }
         }.start()
     }
+
+    fun getList() : ArrayList<Medication> = medicationsList
 }

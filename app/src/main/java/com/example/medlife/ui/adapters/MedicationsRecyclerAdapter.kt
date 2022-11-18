@@ -7,28 +7,26 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.medlife.R
+import com.example.medlife.Utils
 import com.example.medlife.models.Medication
 import kotlin.Int
-
 
 internal class MedicationsRecyclerAdapter(private val context : Context, private val dataSet: ArrayList<Medication>, private val isGrid: Boolean) :
     RecyclerView.Adapter<MedicationsRecyclerAdapter.ViewHolder>() {
 
-    private lateinit var mListener : onItemClickListener
+    private lateinit var listener : onItemClickListener
 
     interface onItemClickListener{
         fun onItemClick(position: Int)
     }
 
     fun setOnItemClickListener(listener: onItemClickListener) {
-        mListener = listener
+        this.listener = listener
     }
 
-    internal inner class ViewHolder(view: View, listener: onItemClickListener) : RecyclerView.ViewHolder(view){
+    internal inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
             val container           : View
             val nameView            : TextView
             val iconView            : ImageView
@@ -48,16 +46,12 @@ internal class MedicationsRecyclerAdapter(private val context : Context, private
         return  ViewHolder(LayoutInflater.from(parent.context).inflate(
             if (isGrid) R.layout.medication_grid_item
             else R.layout.medication_item,
-            parent, false), mListener)
+            parent, false))
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.nameView.text = dataSet[position].Name
-
-        Glide.with(context).load(R.drawable.pill_default_image)
-            .error(R.drawable.pill_default_image)
-            .transform(CenterCrop(), CircleCrop())
-            .into(viewHolder.iconView)
+        Utils.setImage(context, viewHolder.iconView, dataSet[position].Icon, CircleCrop())
     }
 
     override fun getItemCount() = dataSet.size

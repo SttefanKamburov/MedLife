@@ -15,13 +15,15 @@ import java.util.*
 import kotlin.Int
 import kotlin.collections.ArrayList
 
-internal class CalendarRecyclerAdapter(private val context : Context, private val dataSet: ArrayList<MedicationDate>) :
+internal class CalendarRecyclerAdapter(
+    private val context : Context,
+    private val dataSet: ArrayList<MedicationDate>) :
     RecyclerView.Adapter<CalendarRecyclerAdapter.ViewHolder>() {
 
     companion object{
-        const val VIEW_TYPE_HEADER = 0
-        const val VIEW_TYPE_ITEM   = 1
-        const val VIEW_TYPE_FOOTER = 2
+        private const val VIEW_TYPE_HEADER = 0
+        private const val VIEW_TYPE_ITEM   = 1
+        private const val VIEW_TYPE_FOOTER = 2
     }
 
     private lateinit var mListener : CalendarAdapterListener

@@ -29,7 +29,7 @@ class MedicationFragment : Fragment() {
         val view: View =  inflater.inflate(R.layout.fragment_medication, container, false)
 
         medicationsAdapter = MedicationsRecyclerAdapter(requireActivity(), medicationsList, true)
-        medicationsAdapter.setOnItemClickListener(object : MedicationsRecyclerAdapter.onItemClickListener{
+        medicationsAdapter.setOnItemClickListener(object : MedicationsRecyclerAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
                 activity?.let{
                     (activity as MainActivity).goToAddEditMedication(medicationsList[position])

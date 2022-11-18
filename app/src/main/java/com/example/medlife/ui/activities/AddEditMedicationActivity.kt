@@ -36,7 +36,7 @@ import java.io.File
 import java.io.IOException
 
 
-class MedicationEditActivity : AppCompatActivity(), View.OnClickListener {
+class AddEditMedicationActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         private const val REQUEST_CODE_READ_STORAGE_PERMISSION  = 1

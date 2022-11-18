@@ -3,7 +3,6 @@ package com.example.medlife.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
@@ -13,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -82,7 +80,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         })
 
         medicationsAdapter = MedicationsRecyclerAdapter(this, medicationsList, false)
-        medicationsAdapter.setOnItemClickListener(object : MedicationsRecyclerAdapter.onItemClickListener{
+        medicationsAdapter.setOnItemClickListener(object : MedicationsRecyclerAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
 
             }
@@ -141,7 +139,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     fun goToAddEditMedication(medication : Medication?){
-        val intent = Intent(this, MedicationEditActivity::class.java)
+        val intent = Intent(this, AddEditMedicationActivity::class.java)
         if(medication != null)
             intent.putExtra(Utils.INTENT_TRANSFER_MEDICATION_ID, medication.id)
         addEditMedicationLauncher.launch(intent)

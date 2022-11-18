@@ -44,7 +44,8 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,8 +53,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.MedicationEditActivity"
-            android:screenOrientation="portrait" />
+            android:name=".ui.activities.AddEditMedicationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

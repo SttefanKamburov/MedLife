@@ -23,4 +23,14 @@
     <string name="txt_cancel_cps_on">CANCEL</string>
     <string name="add_medication">Add medication</string>
     <string name="txt_delete">Delete</string>
+    <string name="plus_button_text">+</string>
+    <string name="txt_start_date">Date</string>
+    <string name="txt_time">Time</string>
+    <string name="txt_hint_date_from">Date from</string>
+    <string name="txt_hint_time_from">Time from</string>
+    <string name="txt_time_to">Time to</string>
+    <string name="txt_date_to">Date to</string>
+    <string name="txt_select_date">SELECT DATE</string>
+    <string name="txt_select_time">SELECT TIME</string>
+    <string name="txt_hint_time">Time</string>
 </resources>

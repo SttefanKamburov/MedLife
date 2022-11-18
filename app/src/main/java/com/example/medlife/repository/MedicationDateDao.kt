@@ -5,10 +5,10 @@ import com.example.medlife.models.MedicationDate
 
 @Dao
 interface MedicationDateDao {
-    @Query("select * from medication")
+    @Query("select * from medicationdate")
     fun getAll(): Array<MedicationDate>
 
-    @Query("select * from medication where id = :id")
+    @Query("select * from medicationdate where id = :id")
     fun loadById(id: Int): MedicationDate
 
     //@Query("select * from medication where name = :name")

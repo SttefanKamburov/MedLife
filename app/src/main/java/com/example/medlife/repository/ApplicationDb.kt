@@ -10,7 +10,7 @@ import com.example.medlife.models.Medication
 import com.example.medlife.models.MedicationDate
 import java.security.AccessControlContext
 
-@Database(entities = [Medication::class], version = 1)
+@Database(entities = [Medication::class, MedicationDate::class], version = 1)
 abstract class ApplicationDb : RoomDatabase() {
     companion object{
         private var sIntance : ApplicationDb? = null
@@ -44,5 +44,5 @@ abstract class ApplicationDb : RoomDatabase() {
     }
 
     abstract fun medicationDao() : MedicationDao
-    abstract fun medicationDateDao() : MedicationDate
+    abstract fun medicationDateDao() : MedicationDateDao
 }

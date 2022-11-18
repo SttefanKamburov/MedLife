@@ -1,17 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android           ="http://schemas.android.com/apk/res/android"
     xmlns:app               ="http://schemas.android.com/apk/res-auto"
-    android:layout_width    ="match_parent"
+    android:id                  ="@+id/main_relative_layout"
+    android:layout_width        ="match_parent"
+    android:layout_height       ="wrap_content">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width    ="match_parent"
     android:layout_height   ="match_parent">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/main_activity_view_pager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dip"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <CalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/medications_for_day_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="252dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <RelativeLayout
+            android:id="@+id/bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:elevation="8dp"
+            android:orientation="vertical"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="100dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            app:layout_insetEdge="top">
+
+            <LinearLayout
+                android:id="@+id/bottom_sheet_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_background_round_top_corners"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="60dip"
+                    android:layout_height="6dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bottom_sheet_handle" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/all_medications_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="611dp"
+        android:text="@string/plus_button_text" />
+
+
+</RelativeLayout>

@@ -36,6 +36,9 @@ class MedicationFragment : Fragment() {
                     (activity as MainActivity).goToAddEditMedication(medicationsList[position])
                 }
             }
+
+            override fun onDeleteClick(position: Int) {
+            }
         })
         addMedicationBtn                = view.findViewById(R.id.add_medication_btn)
         addMedicationBtn.setOnClickListener {
@@ -59,7 +62,7 @@ class MedicationFragment : Fragment() {
             if(activity != null){
                 medicationsList.addAll(ApplicationDb.getInstance(activity as Context)!!.medicationDao().getAll())
                 activity?.runOnUiThread {
-                    addMedicationBtn.visibility = View.VISIBLE
+                    addMedicationBtn.visibility =  View.VISIBLE
                     medicationsAdapter.notifyDataSetChanged()
                 }
             }

@@ -5,92 +5,103 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/medication_edit_icon_view"
-        android:layout_width="193dp"
-        android:layout_height="131dp"
+    <LinearLayout
+        android:id="@+id/medication_row_delete_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        android:background="?android:selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053"
-        app:srcCompat="@drawable/pill_default_image"/>
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/medication_date_medication_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+        <TextView
+            android:id="@+id/medication_date_medication_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/medication_edit_name_view"
         android:layout_width="189dp"
         android:layout_height="48dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
         android:autofillHints=""
         android:background="@drawable/edit_text_background"
         android:clickable="true"
         android:ems="10"
-        android:hint="@string/txt_medication_name"
+        android:hint="@string/txt_hint_date_from"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medication_edit_icon_view"
+        app:layout_constraintTop_toBottomOf="@+id/medication_row_delete_button"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/medication_edit_dosage_view"
         android:layout_width="189dp"
         android:layout_height="48dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
         android:autofillHints=""
         android:background="@drawable/edit_text_background"
         android:clickable="true"
         android:ems="10"
-        android:hint="@string/txt_medication_dosage"
+        android:hint="@string/txt_hint_time"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medication_edit_name_view"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/date_to_edit_text"
+        app:layout_constraintVertical_bias="0.087" />
 
     <EditText
         android:id="@+id/date_to_edit_text"
         android:layout_width="189dp"
         android:layout_height="48dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:autofillHints=""
         android:background="@drawable/edit_text_background"
         android:clickable="true"
         android:ems="10"
-        android:hint="@string/txt_medication_frequency"
+        android:hint="@string/txt_date_to"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medication_edit_dosage_view"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/time_to_edit_txt"
-        android:layout_width="189dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:autofillHints=""
-        android:background="@drawable/edit_text_background"
-        android:clickable="true"
-        android:ems="10"
-        android:hint="@string/txt_max_taking_days"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_to_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/medication_edit_name_view"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -117,18 +128,40 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/delete_fab"
+    <Button
+        android:id="@+id/date_from_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:clickable="true"
-        android:contentDescription="@string/txt_delete"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/txt_select_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        app:layout_constraintStart_toEndOf="@+id/medication_edit_name_view"
+        app:layout_constraintTop_toBottomOf="@+id/medication_row_delete_button" />
+
+    <Button
+        android:id="@+id/time_from_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/txt_select_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/medication_edit_dosage_view"
+        app:layout_constraintTop_toBottomOf="@+id/date_to_btn" />
+
+    <Button
+        android:id="@+id/date_to_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/txt_select_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/date_to_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/date_from_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

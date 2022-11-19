@@ -30,26 +30,25 @@ internal class MedicationsRecyclerAdapter(
     }
 
     internal inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
-            private val container   : View
-            val nameView            : TextView
-            val iconView            : ImageView
+        private var container   : View
+        var nameView            : TextView
+        var iconView            : ImageView
 
-            init {
-                container   = view.findViewById(R.id.container)
-                iconView    = view.findViewById(R.id.medication_icon)
-                nameView    = view.findViewById(R.id.medication_name_text)
+        init {
+            container   = view.findViewById(R.id.container)
+            iconView    = view.findViewById(R.id.medication_icon)
+            nameView    = view.findViewById(R.id.medication_name_text)
 
-                container.setOnClickListener{
-                    listener.onItemClick(adapterPosition)
-                }
+            container.setOnClickListener{
+                listener.onItemClick(adapterPosition)
             }
         }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return  ViewHolder(LayoutInflater.from(parent.context).inflate(
-            if (isGrid) R.layout.medication_grid_item else R.layout.medication_item,
-            parent,
-            false))
+        return  ViewHolder(LayoutInflater.from(parent.context)
+            .inflate(if(isGrid) R.layout.medication_grid_item else R.layout.medication_item
+                , parent, false))
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {

@@ -2,7 +2,10 @@ package com.example.medlife.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
@@ -42,9 +45,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var dimView                : View
     private lateinit var bottomSheet            : View
     private lateinit var bottomSheetBehavior    : BottomSheetBehavior<*>
+    private lateinit var searchEdt              : EditText
+    private lateinit var noDataText             : TextView
     private lateinit var medicationsAdapter     : MedicationsRecyclerAdapter
 
     private val medicationsList                 : ArrayList<Medication> = arrayListOf()
+    private val medicationsBufferList           : ArrayList<Medication> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +61,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         medicationsBtn  = findViewById(R.id.medications_button)
         bottomSheet     = findViewById(R.id.bottom_sheet)
         dimView         = findViewById(R.id.bottom_sheet_dim_view)
+        searchEdt       = findViewById(R.id.search_edt)
+        noDataText      = findViewById(R.id.no_data_found_text)
 
         viewPager.adapter = PageAdapter(supportFragmentManager)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
@@ -79,7 +87,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             }
         })
 
-        medicationsAdapter = MedicationsRecyclerAdapter(this, medicationsList, false)
+        medicationsAdapter = MedicationsRecyclerAdapter(this, medicationsBufferList, false)
         medicationsAdapter.setOnItemClickListener(object : MedicationsRecyclerAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
 
@@ -88,6 +96,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         val recyclerView: RecyclerView  = findViewById(R.id.all_medications_recyclerview)
         recyclerView.layoutManager      = LinearLayoutManager(this)
         recyclerView.adapter            = medicationsAdapter
+
+        recyclerView.post {
+            val params = recyclerView.layoutParams
+            params.height = findViewById<View?>(R.id.root_view).height * 2 / 3
+            recyclerView.layoutParams = params
+        }
+
+        searchEdt.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                refreshMedications(p0.toString())
+            }
+        })
 
         findViewById<TextView>(R.id.toolbar_title_text_view).text = getString(R.string.app_name)
         findViewById<ImageView>(R.id.back_arrow_image_view).visibility = View.GONE
@@ -126,9 +148,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         if(medicationFragment != null){
             medicationsList.clear()
             medicationsList.addAll(medicationFragment!!.getList())
-            medicationsAdapter.notifyDataSetChanged()
+            searchEdt.setText("")
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
+    }
+
+    private fun refreshMedications(searchText : String){
+        medicationsBufferList.clear()
+
+        for (medication in medicationsList){
+            if(medication.Name.lowercase().contains(searchText.lowercase())
+                || medication.TakingFrequency.lowercase().contains(searchText.lowercase())
+                || medication.Dosage.lowercase().contains(searchText.lowercase())
+                || medication.MaxTakingDays.toString().lowercase().contains(searchText.lowercase()))
+                medicationsBufferList.add(medication)
+        }
+
+        noDataText.visibility = if (medicationsBufferList.size > 0) View.GONE else View.VISIBLE
+        medicationsAdapter.notifyDataSetChanged()
     }
 
     override fun onBackPressed() {

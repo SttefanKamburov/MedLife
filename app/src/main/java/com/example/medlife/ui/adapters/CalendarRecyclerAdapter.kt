@@ -26,7 +26,7 @@ internal class CalendarRecyclerAdapter(
         private const val VIEW_TYPE_FOOTER = 2
     }
 
-    private lateinit var mListener : CalendarAdapterListener
+    private lateinit var listener : CalendarAdapterListener
 
     interface CalendarAdapterListener{
         fun onDateSelected(year : Int, month : Int, dayOfMonth : Int)
@@ -34,7 +34,7 @@ internal class CalendarRecyclerAdapter(
     }
 
     fun setCalendarAdapterListener(listener: CalendarAdapterListener) {
-        mListener = listener
+        this.listener = listener
     }
 
     internal inner class ViewHolder(view: View, viewType : Int) : RecyclerView.ViewHolder(view){
@@ -55,7 +55,7 @@ internal class CalendarRecyclerAdapter(
                     setTitle(title, Utils.convertTimestampToDate(Calendar.getInstance().timeInMillis))
 
                     calendar?.setOnDateChangeListener { _, year, month, dayOfMonth ->
-                        mListener.onDateSelected(
+                        listener.onDateSelected(
                             year,
                             month,
                             dayOfMonth
@@ -70,7 +70,7 @@ internal class CalendarRecyclerAdapter(
                     nameView    = view.findViewById(R.id.medication_name_text)
 
                     container?.setOnClickListener{
-                        mListener.onItemClick(adapterPosition)
+                        listener.onItemClick(adapterPosition)
                     }
                 }
             }

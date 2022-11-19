@@ -37,4 +37,6 @@
     <string name="take_photo">Take photo</string>
     <string name="choose_from_gallery">Choose from gallery</string>
     <string name="all_medications">All medications</string>
+    <string name="type_to_search">Type to search</string>
+    <string name="no_data_found">No data found</string>
 </resources>

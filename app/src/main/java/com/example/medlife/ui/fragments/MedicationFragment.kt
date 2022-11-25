@@ -74,10 +74,7 @@ class MedicationFragment : Fragment() {
         medicationsBufferList.clear()
 
         for (medication in medicationsList){
-            if(medication.Name.lowercase().contains(searchText.lowercase())
-                || medication.TakingFrequency.lowercase().contains(searchText.lowercase())
-                || medication.Dosage.lowercase().contains(searchText.lowercase())
-                || medication.MaxTakingDays.toString().lowercase().contains(searchText.lowercase()))
+            if(medication.name.lowercase().contains(searchText.lowercase()))
                 medicationsBufferList.add(medication)
         }
 

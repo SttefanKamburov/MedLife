@@ -26,6 +26,7 @@ class Utils {
 
     companion object{
         const val INTENT_TRANSFER_MEDICATION_ID = "medication_id"
+        const val INTENT_TRANSFER_REMINDER_ID   = "reminder_id";
         const val DATE_FORMAT_SLASHES           = "dd/MM/yyyy"
 
         fun convertTimestampToDate(timestamp: Long?): String {
@@ -39,6 +40,10 @@ class Utils {
             } catch (e: java.lang.Exception) {
                 ""
             }
+        }
+
+        fun getDisplayTime(hour : Int, minute : Int) : String {
+            return "$hour:${if(minute > 9) minute.toString() else "0${minute}"}"
         }
 
         fun tintDrawable(drawable: Drawable, tint: Int): Drawable? {
@@ -57,7 +62,7 @@ class Utils {
         fun setImage(context : Context, imageView : ImageView, image : ByteArray?, transformation : Transformation<Bitmap>){
             Glide.with(context)
                 .load(image)
-                .error(R.drawable.pill_default_image)
+                .error(R.drawable.default_medication_icon)
                 .transform(CenterCrop(), transformation)
                 .into(imageView)
         }

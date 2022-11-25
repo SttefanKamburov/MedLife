@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android           ="http://schemas.android.com/apk/res/android"
+    android:layout_width    ="match_parent"
+    android:layout_height   ="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id              ="@+id/appbar_layout"
+        android:layout_width    ="match_parent"
+        android:layout_height   ="wrap_content">
+
+        <include layout="@layout/toolbar_layout"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width    ="match_parent"
+        android:layout_height   ="match_parent"
+        android:layout_below    ="@id/appbar_layout">
+
+        <LinearLayout
+            android:layout_width        ="match_parent"
+            android:layout_height       ="wrap_content"
+            android:orientation         ="vertical">
+
+            <ImageView
+                android:id                  ="@+id/medication_icon"
+                android:layout_width        ="150dp"
+                android:layout_height       ="150dp"
+                android:src                 ="@drawable/default_medication_icon"
+                android:layout_gravity      ="center"
+                android:layout_marginTop    ="16dp"/>
+
+            <TextView
+                android:id                  ="@+id/medication_name"
+                android:layout_width        ="match_parent"
+                android:layout_height       ="wrap_content"
+                android:layout_marginStart  ="16dp"
+                android:layout_marginEnd    ="16dp"
+                android:gravity             ="center"
+                android:textColor           ="@color/black"
+                android:textSize            ="18sp"
+                android:layout_marginTop    ="8dp"
+                android:fontFamily          ="sans-serif-medium"/>
+
+            <TextView
+                android:layout_width        ="wrap_content"
+                android:layout_height       ="wrap_content"
+                android:text                ="@string/period"
+                android:layout_marginStart  ="16dp"
+                android:layout_marginEnd    ="16dp"
+                android:textColor           ="@color/black"
+                android:fontFamily          ="sans-serif-medium"
+                android:textSize            ="16sp"
+                android:layout_marginTop    ="24dp"/>
+
+            <LinearLayout
+                android:layout_width        ="match_parent"
+                android:layout_height       ="wrap_content"
+                android:orientation         ="horizontal"
+                android:layout_marginTop    ="8dp"
+                android:layout_marginStart  ="16dp"
+                android:layout_marginEnd    ="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width        ="0dp"
+                    android:layout_height       ="wrap_content"
+                    android:layout_weight       ="1"
+                    android:hint                ="@string/date_from">
+
+                    <EditText
+                        android:id                      ="@+id/date_from_edt"
+                        android:layout_width            ="match_parent"
+                        android:layout_height           ="wrap_content"
+                        android:imeOptions              ="actionNext"
+                        android:nextFocusDown           ="@id/dosage_edt"
+                        android:clickable               ="true"
+                        android:focusable               ="false"
+                        android:focusableInTouchMode    ="false"
+                        android:longClickable           ="false"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width        ="0dp"
+                    android:layout_height       ="wrap_content"
+                    android:layout_weight       ="1"
+                    android:hint                ="@string/date_to">
+
+                    <EditText
+                        android:id                      ="@+id/date_to_edt"
+                        android:layout_width            ="match_parent"
+                        android:layout_height           ="wrap_content"
+                        android:imeOptions              ="actionNext"
+                        android:nextFocusDown           ="@id/dosage_edt"
+                        android:clickable               ="true"
+                        android:focusable               ="false"
+                        android:focusableInTouchMode    ="false"
+                        android:longClickable           ="false"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width        ="wrap_content"
+                android:layout_height       ="wrap_content"
+                android:text                ="@string/reminder_times"
+                android:layout_marginStart  ="16dp"
+                android:layout_marginEnd    ="16dp"
+                android:textColor           ="@color/black"
+                android:fontFamily          ="sans-serif-medium"
+                android:textSize            ="16sp"
+                android:layout_marginTop    ="24dp"/>
+
+            <LinearLayout
+                android:id                  ="@+id/times_container"
+                android:layout_width        ="match_parent"
+                android:layout_height       ="wrap_content"
+                android:orientation         ="vertical"
+                android:layout_marginTop    ="8dp">
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id                  ="@+id/add_time_btn"
+                android:layout_width        ="wrap_content"
+                android:layout_height       ="wrap_content"
+                android:layout_gravity      ="center"
+                android:text                ="@string/add_new_time"
+                android:layout_marginStart  ="16dp"
+                android:layout_marginEnd    ="16dp"
+                android:textSize            ="18sp"
+                android:textStyle           ="bold"
+                android:textColor           ="@color/main_purple"
+                android:padding             ="12dp"
+                android:background          ="?android:selectableItemBackground"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:layout_width                ="match_parent"
+        android:layout_height               ="80dp"
+        android:layout_alignParentBottom    ="true"
+        android:background                  ="@drawable/white_transparent_gradient"/>
+
+    <Button
+        style                               ="@style/MainButton"
+        android:id                          ="@+id/add_edit_btn"
+        android:layout_alignParentBottom    ="true"
+        android:text                        ="@string/add"/>
+
+</RelativeLayout>

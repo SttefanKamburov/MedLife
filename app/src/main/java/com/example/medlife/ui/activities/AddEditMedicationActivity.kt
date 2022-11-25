@@ -77,7 +77,7 @@ class AddEditMedicationActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun init(){
-        iconImageView                = findViewById(R.id.medication_edit_icon_view)
+        iconImageView           = findViewById(R.id.medication_icon)
         nameEditText            = findViewById(R.id.name_edt)
         dosageEditText          = findViewById(R.id.dosage_edt)
         frequencyEditText       = findViewById(R.id.frequency_edt)
@@ -111,22 +111,22 @@ class AddEditMedicationActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setData(){
         try{
-            if(currentMedication!!.Icon != null)
-                Utils.setImage(this, iconImageView, currentMedication!!.Icon, RoundedCorners(20))
+            if(currentMedication!!.icon != null)
+                Utils.setImage(this, iconImageView, currentMedication!!.icon, RoundedCorners(20))
         }catch (e : Exception){
             e.printStackTrace()
         }
 
-        nameEditText.setText(currentMedication!!.Name)
-        dosageEditText.setText(currentMedication!!.Dosage)
-        frequencyEditText.setText(currentMedication!!.TakingFrequency)
-        maxTakingDaysEditText.setText(currentMedication!!.MaxTakingDays.toString())
+        nameEditText.setText(currentMedication!!.name)
+        dosageEditText.setText(currentMedication!!.dosage)
+        frequencyEditText.setText(currentMedication!!.takingFrequency)
+        maxTakingDaysEditText.setText(currentMedication!!.maxTakingDays.toString())
     }
 
     private fun setBitmap(){
         Glide.with(this)
-            .load(if (bitmap == null) R.drawable.pill_default_image else bitmap)
-            .error(R.drawable.pill_default_image)
+            .load(if (bitmap == null) R.drawable.default_medication_icon else bitmap)
+            .error(R.drawable.default_medication_icon)
             .transform(CenterCrop(), RoundedCorners(20))
             .into(iconImageView)
     }
@@ -152,7 +152,7 @@ class AddEditMedicationActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
         else if (v?.id == R.id.right_image_view)
-            deleteMedication()
+            confirmDeleteMedication()
     }
 
     private fun showChooseMethodForSelectingImage() {
@@ -290,13 +290,13 @@ class AddEditMedicationActivity : AppCompatActivity(), View.OnClickListener {
             bitmap!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
             val byteArray: ByteArray = stream.toByteArray()
             bitmap!!.recycle()
-            currentMedication!!.Icon = byteArray
+            currentMedication!!.icon = byteArray
         }
 
-        currentMedication!!.Name            = nameEditText.text.toString()
-        currentMedication!!.Dosage          = dosageEditText.text.toString()
-        currentMedication!!.TakingFrequency = frequencyEditText.text.toString()
-        currentMedication!!.MaxTakingDays   = maxTakingDaysEditText.text.toString().toInt()
+        currentMedication!!.name            = nameEditText.text.toString()
+        currentMedication!!.dosage          = dosageEditText.text.toString()
+        currentMedication!!.takingFrequency = frequencyEditText.text.toString()
+        currentMedication!!.maxTakingDays   = maxTakingDaysEditText.text.toString().toInt()
 
         Thread {
             val db = ApplicationDb.getInstance(applicationContext)
@@ -313,10 +313,26 @@ class AddEditMedicationActivity : AppCompatActivity(), View.OnClickListener {
         }.start()
     }
 
+    private fun confirmDeleteMedication(){
+        val dialogLayout: View = layoutInflater.inflate(R.layout.dialog_are_you_sure, null)
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogLayout)
+        val alertDialog = builder.show()
+        alertDialog.findViewById<TextView>(R.id.info_text)?.text = getString(R.string.are_you_sure_you_want_to_delete_this_medication)
+        alertDialog.findViewById<View>(R.id.cancel_btn)!!.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        alertDialog.findViewById<View>(R.id.confirm_btn)!!.setOnClickListener {
+            alertDialog.dismiss()
+            deleteMedication()
+        }
+    }
+
     private fun deleteMedication(){
         Thread {
             val db = ApplicationDb.getInstance(applicationContext)
             db!!.medicationDao().delete(currentMedication!!)
+            db!!.reminderDao().deleteForMedication(currentMedication!!.id)
 
             runOnUiThread {
                 setResult(RESULT_OK)

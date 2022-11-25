@@ -21,6 +21,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.medlife.R
 import com.example.medlife.Utils
 import com.example.medlife.models.Medication
+import com.example.medlife.models.Reminder
 import com.example.medlife.ui.adapters.MedicationsRecyclerAdapter
 import com.example.medlife.ui.fragments.CalendarFragment
 import com.example.medlife.ui.fragments.MedicationFragment
@@ -90,7 +91,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         medicationsAdapter = MedicationsRecyclerAdapter(this, medicationsBufferList, false)
         medicationsAdapter.setOnItemClickListener(object : MedicationsRecyclerAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
-
+                goToAddEditReminder(null, medicationsBufferList[position])
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         })
         val recyclerView: RecyclerView  = findViewById(R.id.all_medications_recyclerview)
@@ -157,10 +159,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         medicationsBufferList.clear()
 
         for (medication in medicationsList){
-            if(medication.Name.lowercase().contains(searchText.lowercase())
-                || medication.TakingFrequency.lowercase().contains(searchText.lowercase())
-                || medication.Dosage.lowercase().contains(searchText.lowercase())
-                || medication.MaxTakingDays.toString().lowercase().contains(searchText.lowercase()))
+            if(medication.name.lowercase().contains(searchText.lowercase()))
                 medicationsBufferList.add(medication)
         }
 
@@ -182,11 +181,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         addEditMedicationLauncher.launch(intent)
     }
 
+    fun goToAddEditReminder(reminder: Reminder?, medication: Medication?){
+        val intent = Intent(this, AddEditReminderActivity::class.java)
+        if(reminder != null)
+            intent.putExtra(Utils.INTENT_TRANSFER_REMINDER_ID, reminder.id)
+        if(medication != null)
+            intent.putExtra(Utils.INTENT_TRANSFER_MEDICATION_ID, medication.id)
+        addEditReminderLauncher.launch(intent)
+    }
+
     private val addEditMedicationLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 if(medicationFragment != null)
                     medicationFragment!!.getMedications()
+
+                if(calendarFragment != null)
+                    calendarFragment!!.getReminders()
+            }
+        }
+
+    private val addEditReminderLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                if(calendarFragment != null)
+                    calendarFragment!!.getReminders()
             }
         }
 

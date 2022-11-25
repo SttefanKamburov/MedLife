@@ -52,8 +52,8 @@ internal class MedicationsRecyclerAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.nameView.text = dataSet[position].Name
-        Utils.setImage(context, viewHolder.iconView, dataSet[position].Icon, CircleCrop())
+        viewHolder.nameView.text = dataSet[position].name
+        Utils.setImage(context, viewHolder.iconView, dataSet[position].icon, CircleCrop())
     }
 
     override fun getItemCount() = dataSet.size

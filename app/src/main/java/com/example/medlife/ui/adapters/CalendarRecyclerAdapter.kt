@@ -8,16 +8,17 @@ import android.widget.CalendarView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.medlife.R
 import com.example.medlife.Utils
-import com.example.medlife.models.MedicationDate
+import com.example.medlife.models.Reminder
 import java.util.*
 import kotlin.Int
 import kotlin.collections.ArrayList
 
 internal class CalendarRecyclerAdapter(
     private val context : Context,
-    private val dataSet: ArrayList<MedicationDate>) :
+    private val dataSet: ArrayList<Reminder>) :
     RecyclerView.Adapter<CalendarRecyclerAdapter.ViewHolder>() {
 
     companion object{
@@ -45,6 +46,7 @@ internal class CalendarRecyclerAdapter(
         var container           : View?         = null
         var nameView            : TextView?     = null
         var iconView            : ImageView?    = null
+        var timesText           : TextView?     = null
 
         init {
             if(viewType != VIEW_TYPE_FOOTER){
@@ -68,6 +70,7 @@ internal class CalendarRecyclerAdapter(
                     container   = view.findViewById(R.id.container)
                     iconView    = view.findViewById(R.id.medication_icon)
                     nameView    = view.findViewById(R.id.medication_name_text)
+                    timesText   = view.findViewById(R.id.times_text)
 
                     container?.setOnClickListener{
                         listener.onItemClick(adapterPosition)
@@ -81,7 +84,7 @@ internal class CalendarRecyclerAdapter(
         val layout : Int = when (viewType) {
             VIEW_TYPE_HEADER -> R.layout.calendar_header
             VIEW_TYPE_FOOTER -> R.layout.emtpy_footer
-            else -> R.layout.medication_for_day_item
+            else -> R.layout.reminder_row
         }
 
         return ViewHolder(LayoutInflater.from(context).inflate(layout, parent, false), viewType)
@@ -89,7 +92,19 @@ internal class CalendarRecyclerAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         if(getItemViewType(position) == VIEW_TYPE_ITEM){
+            viewHolder.nameView!!.text = dataSet[position].medicationName
+            Utils.setImage(context, viewHolder.iconView!!, dataSet[position].medicationImage, CircleCrop())
 
+            viewHolder.timesText?.text = ""
+            var timesString = ""
+
+            dataSet[position].timesList.forEachIndexed { index, reminderTime ->
+                timesString += Utils.getDisplayTime(reminderTime.hour, reminderTime.minute)
+                if(index < dataSet[position].timesList.size - 1)
+                    timesString += ", "
+            }
+
+            viewHolder.timesText?.text = timesString
         }
     }
 

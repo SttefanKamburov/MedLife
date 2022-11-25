@@ -11,9 +11,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Medication (
     @PrimaryKey(autoGenerate = true)                var id              : Long = 0,
-    @ColumnInfo(name = "name")                      var Name            : String = "",
-    @ColumnInfo(name = "icon", typeAffinity = BLOB) var Icon            : ByteArray? = null,
-    @ColumnInfo(name = "dosage")                    var Dosage          : String = "",
-    @ColumnInfo(name = "taking_frequency")          var TakingFrequency : String = "",
-    @ColumnInfo(name = "max_taking_days")           var MaxTakingDays   : Int = 0
+    @ColumnInfo(name = "name")                      var name            : String = "",
+    @ColumnInfo(name = "icon", typeAffinity = BLOB) var icon            : ByteArray? = null,
+    @ColumnInfo(name = "dosage")                    var dosage          : String = "",
+    @ColumnInfo(name = "taking_frequency")          var takingFrequency : String = "",
+    @ColumnInfo(name = "max_taking_days")           var maxTakingDays   : Int = 0
 ) : Parcelable

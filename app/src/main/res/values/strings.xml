@@ -39,4 +39,19 @@
     <string name="all_medications">All medications</string>
     <string name="type_to_search">Type to search</string>
     <string name="no_data_found">No data found</string>
+    <string name="date_from">Date from</string>
+    <string name="date_to">Date to</string>
+    <string name="period">Period</string>
+    <string name="reminder_times">Reminder times</string>
+    <string name="edit_reminder">Edit reminder</string>
+    <string name="add_reminder">Add reminder</string>
+    <string name="please_choose_date">Please choose date</string>
+    <string name="please_add_at_least_one_reminder_time">Please add at least one reminder time</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="are_you_sure_you_want_to_delete_this_medication">Are you sure you want to delete this medication?</string>
+    <string name="are_you_sure_you_want_to_delete_this_reminder">Are you sure you want to delete this reminder?</string>
+    <string name="are_you_sure_you_want_to_delete_this_reminder_time">Are you sure you want to delete this reminder time?</string>
+    <string name="select_time">Select Time</string>
+    <string name="add_new_time">Add new time</string>
 </resources>

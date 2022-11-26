@@ -332,6 +332,17 @@ class AddEditMedicationActivity : AppCompatActivity(), View.OnClickListener {
         Thread {
             val db = ApplicationDb.getInstance(applicationContext)
             db!!.medicationDao().delete(currentMedication!!)
+
+            try{
+                val reminders = db.reminderDao().loadByMedication(currentMedication!!.id)
+                for(reminder in reminders){
+                    db.reminderTimeDao().deleteAllForReminder(reminder.id)
+                    db.alarmDao().deleteAllForReminder(reminder.id)
+                }
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+
             db.reminderDao().deleteForMedication(currentMedication!!.id)
 
             runOnUiThread {

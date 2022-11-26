@@ -11,6 +11,9 @@ interface ReminderDao {
     @Query("select * from reminder where id = :id")
     fun loadById(id: Long): Reminder
 
+    @Query("select * from reminder where medication_id = :medicationId")
+    fun loadByMedication(medicationId: Long): Array<Reminder>
+
     @Query("select * from reminder where date_from < :timestamp and date_to > :timestamp")
     fun loadByDate(timestamp: Long): Array<Reminder>
 

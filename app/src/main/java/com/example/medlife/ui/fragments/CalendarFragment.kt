@@ -92,12 +92,12 @@ class CalendarFragment : Fragment(), View.OnClickListener {
                     reminder.medicationImage = medication.icon
                     reminder.timesList.clear()
                     reminder.timesList.addAll(db.reminderTimeDao().loadByReminderId(reminder.id))
+                    reminder.timesList.sortWith(compareBy ({ it.hour }, {it.minute}))
 
                     reminders.add(reminder)
                 }
             }
 
-            reminders.sortedWith(compareBy<Reminder>{it.timesList[0].hour}.thenBy{it.timesList[0].minute})
             reminders.add(0, Reminder())
 
             requireActivity().runOnUiThread {

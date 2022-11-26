@@ -316,7 +316,7 @@ class AddEditReminderActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             val todayCalendar = Calendar.getInstance()
-            var firstTimestamp = 0L
+            var firstTimestamp = toDateMillis
 
             for (time in times) {
                 time.reminderId = reminderId
@@ -335,7 +335,7 @@ class AddEditReminderActivity : AppCompatActivity(), View.OnClickListener {
                         alarm.timestamp = calendar.timeInMillis
                         db.alarmDao().insert(alarm)
 
-                        if(firstTimestamp == 0L)
+                        if(firstTimestamp > calendar.timeInMillis)
                             firstTimestamp = calendar.timeInMillis
                     }
 
@@ -348,7 +348,7 @@ class AddEditReminderActivity : AppCompatActivity(), View.OnClickListener {
                 val nextAlarm   = preferences.getLong(Utils.NEXT_ALARM_TIME_MILLIS, 0L)
                 val requestCode = preferences.getInt(Utils.ALARM_REQUEST_CODE, 100)
 
-                if(nextAlarm == 0L || firstTimestamp < nextAlarm){
+                if(nextAlarm == 0L || nextAlarm < todayCalendar.timeInMillis || firstTimestamp < nextAlarm){
 
                     val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
@@ -385,6 +385,8 @@ class AddEditReminderActivity : AppCompatActivity(), View.OnClickListener {
         Thread {
             val db = ApplicationDb.getInstance(applicationContext)
             db!!.reminderDao().delete(reminder!!)
+            db.reminderTimeDao().deleteAllForReminder(reminder!!.id)
+            db.alarmDao().deleteAllForReminder(reminder!!.id)
 
             runOnUiThread {
                 setResult(RESULT_OK)

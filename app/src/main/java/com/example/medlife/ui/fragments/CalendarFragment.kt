@@ -82,17 +82,19 @@ class CalendarFragment : Fragment(), View.OnClickListener {
             calendar.set(Calendar.DAY_OF_MONTH  , selectedDay)
 
             val db = ApplicationDb.getInstance(requireActivity().applicationContext)
-
             val temp = db!!.reminderDao().loadByDate(calendar.timeInMillis)
 
             for(reminder in temp){
-                val medication = db!!.medicationDao().loadById(reminder.medicationId)
-                reminder.medicationName = medication.name
-                reminder.medicationImage = medication.icon
-                reminder.timesList.clear()
-                reminder.timesList.addAll(db!!.reminderTimeDao().loadByReminderId(reminder.id))
+                val medication = db.medicationDao().loadById(reminder.medicationId)
 
-                reminders.add(reminder)
+                if(medication != null){
+                    reminder.medicationName = medication.name
+                    reminder.medicationImage = medication.icon
+                    reminder.timesList.clear()
+                    reminder.timesList.addAll(db.reminderTimeDao().loadByReminderId(reminder.id))
+
+                    reminders.add(reminder)
+                }
             }
 
             reminders.sortedWith(compareBy<Reminder>{it.timesList[0].hour}.thenBy{it.timesList[0].minute})

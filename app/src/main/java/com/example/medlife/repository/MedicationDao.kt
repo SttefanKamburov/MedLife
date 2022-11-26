@@ -9,10 +9,7 @@ interface MedicationDao {
     fun getAll(): Array<Medication>
 
     @Query("select * from medication where id = :id")
-    fun loadById(id: Long): Medication
-
-    //@Query("select * from medication where name = :name")
-    //fun loadByName(name: String) : String
+    fun loadById(id: Long): Medication?
 
     @Update
     fun update(medication: Medication)

@@ -1,7 +1,14 @@
 package com.example.medlife.ui.activities
 
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -10,6 +17,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -31,9 +40,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 class MainActivity : AppCompatActivity(), View.OnClickListener{
 
     companion object{
-        private const val PAGES_COUNT       = 2
-        private const val PAGE_CALENDAR     = 0
-        private const val PAGE_MEDICATIONS  = 1
+        private const val PAGES_COUNT                           = 2
+        private const val PAGE_CALENDAR                         = 0
+        private const val PAGE_MEDICATIONS                      = 1
     }
 
     private var medicationFragment              : MedicationFragment? = null
@@ -57,6 +66,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
+        createNotificationChannel()
+
         viewPager       = findViewById(R.id.view_pager)
         calendarBtn     = findViewById(R.id.calendar_button)
         medicationsBtn  = findViewById(R.id.medications_button)
@@ -67,7 +78,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         viewPager.adapter = PageAdapter(supportFragmentManager)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float,
+                                        positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
                 setNavigationButtons(position)
@@ -121,18 +133,34 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         medicationsBtn.setOnClickListener(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            if(!alarmManager.canScheduleExactAlarms()){
+                showAllowAlarmsDialog()
+            }
+        }
+    }
+
     private fun setNavigationButtons(page : Int){
-        calendarBtn.setTextColor(ContextCompat.getColor(this, if (page == PAGE_CALENDAR) R.color.main_purple else R.color.grey))
-        medicationsBtn.setTextColor(ContextCompat.getColor(this, if (page == PAGE_MEDICATIONS) R.color.main_purple else R.color.grey))
+        calendarBtn.setTextColor(ContextCompat.getColor(this,
+            if (page == PAGE_CALENDAR) R.color.main_purple else R.color.grey))
+        medicationsBtn.setTextColor(ContextCompat.getColor(this,
+            if (page == PAGE_MEDICATIONS) R.color.main_purple else R.color.grey))
 
         calendarBtn.setCompoundDrawablesWithIntrinsicBounds(
             null,
-            Utils.tintDrawable(ContextCompat.getDrawable(this,  R.drawable.calendar_icon)!!, ContextCompat.getColor(this, if (page == PAGE_CALENDAR) R.color.main_purple else R.color.grey)),
+            Utils.tintDrawable(ContextCompat.getDrawable(this, R.drawable.calendar_icon)!!,
+                ContextCompat.getColor(this,
+                    if (page == PAGE_CALENDAR) R.color.main_purple else R.color.grey)),
             null,
             null)
         medicationsBtn.setCompoundDrawablesWithIntrinsicBounds(
             null,
-            Utils.tintDrawable(ContextCompat.getDrawable(this,  R.drawable.medications_icon)!!, ContextCompat.getColor(this, if (page == PAGE_MEDICATIONS) R.color.main_purple else R.color.grey)),
+            Utils.tintDrawable(ContextCompat.getDrawable(this, R.drawable.medications_icon)!!,
+                ContextCompat.getColor(this,
+                    if (page == PAGE_MEDICATIONS) R.color.main_purple else R.color.grey)),
             null,
             null)
     }
@@ -231,6 +259,43 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 PAGE_MEDICATIONS -> { return getString(R.string.medications) }
             }
             return super.getPageTitle(position)
+        }
+    }
+
+
+    private fun createNotificationChannel() {
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val notificationChannel = NotificationChannel(
+            Utils.NOTIFICATION_CHANNEL_ID,
+            Utils.NOTIFICATION_CHANNEL_NAME,
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        notificationChannel.enableLights(true)
+        notificationChannel.lightColor = Color.GREEN
+        notificationChannel.vibrationPattern = longArrayOf(300, 200, 300, 200, 300)
+        notificationChannel.enableVibration(true)
+        notificationManager.createNotificationChannel(notificationChannel)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun showAllowAlarmsDialog(){
+        val dialogLayout: View = layoutInflater.inflate(R.layout.dialog_are_you_sure, null)
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogLayout)
+        val alertDialog = builder.show()
+        alertDialog.setCancelable(false)
+        alertDialog.findViewById<TextView>(R.id.info_text)?.text =
+            getString(R.string.alarm_permission_text)
+
+        alertDialog.findViewById<View>(R.id.cancel_btn)!!.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        alertDialog.findViewById<View>(R.id.confirm_btn)!!.setOnClickListener {
+            alertDialog.dismiss()
+            val intent = Intent().apply {
+                action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
+            }
+            startActivity(intent)
         }
     }
 }

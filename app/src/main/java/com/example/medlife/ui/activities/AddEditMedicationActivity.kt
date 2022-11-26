@@ -332,7 +332,7 @@ class AddEditMedicationActivity : AppCompatActivity(), View.OnClickListener {
         Thread {
             val db = ApplicationDb.getInstance(applicationContext)
             db!!.medicationDao().delete(currentMedication!!)
-            db!!.reminderDao().deleteForMedication(currentMedication!!.id)
+            db.reminderDao().deleteForMedication(currentMedication!!.id)
 
             runOnUiThread {
                 setResult(RESULT_OK)

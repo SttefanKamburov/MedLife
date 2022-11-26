@@ -54,4 +54,6 @@
     <string name="are_you_sure_you_want_to_delete_this_reminder_time">Are you sure you want to delete this reminder time?</string>
     <string name="select_time">Select Time</string>
     <string name="add_new_time">Add new time</string>
+    <string name="you_need_to_take_the_following_medications_colons">You need to take the following medications:</string>
+    <string name="alarm_permission_text">Please allow the app to set alarms in order for it to work properly.</string>
 </resources>

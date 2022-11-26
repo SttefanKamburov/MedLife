@@ -6,11 +6,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.medlife.models.Alarm
 import com.example.medlife.models.Medication
 import com.example.medlife.models.Reminder
 import com.example.medlife.models.ReminderTime
 
-@Database(entities = [Medication::class, Reminder::class, ReminderTime::class], version = 1)
+@Database(entities = [Medication::class, Reminder::class, ReminderTime::class, Alarm::class], version = 1)
 abstract class ApplicationDb : RoomDatabase() {
     companion object{
         private var sIntance : ApplicationDb? = null
@@ -46,4 +47,5 @@ abstract class ApplicationDb : RoomDatabase() {
     abstract fun medicationDao()    : MedicationDao
     abstract fun reminderDao()      : ReminderDao
     abstract fun reminderTimeDao()  : ReminderTimeDao
+    abstract fun alarmDao()         : AlarmDao
 }

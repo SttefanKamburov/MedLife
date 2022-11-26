@@ -1,8 +1,12 @@
 package com.example.medlife.ui.activities
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.app.PendingIntent
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,9 +14,12 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.medlife.AlarmReceiver
 import com.example.medlife.R
 import com.example.medlife.Utils
+import com.example.medlife.models.Alarm
 import com.example.medlife.models.Medication
 import com.example.medlife.models.Reminder
 import com.example.medlife.models.ReminderTime
@@ -237,11 +244,13 @@ class AddEditReminderActivity : AppCompatActivity(), View.OnClickListener {
                 if (dateEdt === dateFromEdt) {
                     calendar.set(Calendar.HOUR, 0)
                     calendar.set(Calendar.MINUTE, 0)
+                    calendar.set(Calendar.SECOND, 0)
                     fromDateMillis = calendar.timeInMillis
                 }
                 else {
                     calendar.set(Calendar.HOUR, 23)
                     calendar.set(Calendar.MINUTE, 59)
+                    calendar.set(Calendar.SECOND, 59)
                     toDateMillis = calendar.timeInMillis
                 }
 
@@ -281,8 +290,8 @@ class AddEditReminderActivity : AppCompatActivity(), View.OnClickListener {
                 refreshTimes()
             }
 
-        val hour: Int = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute: Int = calendar.get(Calendar.MINUTE)
+        val hour        = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute      = calendar.get(Calendar.MINUTE)
         val mTimePicker = TimePickerDialog(this, timeListener, hour, minute, true)
 
         mTimePicker.setTitle(getString(R.string.select_time))
@@ -300,14 +309,68 @@ class AddEditReminderActivity : AppCompatActivity(), View.OnClickListener {
 
             if (isEdit) {
                 db!!.reminderTimeDao().deleteAllForReminder(reminder!!.id)
+                db.alarmDao().deleteAllForReminder(reminder!!.id)
                 db.reminderDao().update(reminder!!)
             } else {
                 reminderId = db!!.reminderDao().insert(reminder!!)
             }
 
+            val todayCalendar = Calendar.getInstance()
+            var firstTimestamp = 0L
+
             for (time in times) {
                 time.reminderId = reminderId
                 db.reminderTimeDao().insert(time)
+
+                val calendar = Calendar.getInstance()
+                calendar.timeInMillis = fromDateMillis
+                calendar.set(Calendar.HOUR, time.hour)
+                calendar.set(Calendar.MINUTE, time.minute)
+                calendar.set(Calendar.SECOND, 0)
+
+                while (calendar.timeInMillis < toDateMillis){
+                    if(calendar.timeInMillis > todayCalendar.timeInMillis){
+                        val alarm = Alarm()
+                        alarm.reminderId = reminderId
+                        alarm.timestamp = calendar.timeInMillis
+                        db.alarmDao().insert(alarm)
+
+                        if(firstTimestamp == 0L)
+                            firstTimestamp = calendar.timeInMillis
+                    }
+
+                    calendar.add(Calendar.DAY_OF_MONTH, 1)
+                }
+            }
+
+            if(firstTimestamp > 0){
+                val preferences = PreferenceManager.getDefaultSharedPreferences(this@AddEditReminderActivity)
+                val nextAlarm   = preferences.getLong(Utils.NEXT_ALARM_TIME_MILLIS, 0L)
+                val requestCode = preferences.getInt(Utils.ALARM_REQUEST_CODE, 100)
+
+                if(nextAlarm == 0L || firstTimestamp < nextAlarm){
+
+                    val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+                    if(firstTimestamp < nextAlarm){
+                        val cancelIntent = PendingIntent.getBroadcast(
+                            this@AddEditReminderActivity,
+                            requestCode,
+                            Intent(this@AddEditReminderActivity, AlarmReceiver::class.java),
+                            PendingIntent.FLAG_IMMUTABLE)
+                        alarmManager.cancel(cancelIntent)
+                    }
+
+                    val pendingIntent = PendingIntent.getBroadcast(
+                        this@AddEditReminderActivity,
+                        requestCode + 1,
+                        Intent(this@AddEditReminderActivity, AlarmReceiver::class.java),
+                        PendingIntent.FLAG_IMMUTABLE)
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, firstTimestamp, pendingIntent)
+
+                    preferences.edit().putInt(Utils.ALARM_REQUEST_CODE, requestCode + 1).apply()
+                    preferences.edit().putLong(Utils.NEXT_ALARM_TIME_MILLIS, firstTimestamp).apply()
+                }
             }
 
             runOnUiThread {

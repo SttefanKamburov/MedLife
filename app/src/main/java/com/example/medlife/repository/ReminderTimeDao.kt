@@ -14,6 +14,9 @@ interface ReminderTimeDao {
     @Query("select * from remindertime where reminder_id = :id")
     fun loadByReminderId(id: Long): Array<ReminderTime>
 
+    @Query("select * from remindertime where reminder_id = :id and hour = :hour and minute = :minute")
+    fun loadByReminderIdHourAndMinute(id: Long, hour: Int, minute: Int): Array<ReminderTime>
+
     @Update
     fun update(reminderTime: ReminderTime)
 

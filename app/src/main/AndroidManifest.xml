@@ -9,6 +9,8 @@
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
     <queries>
         <intent>
@@ -34,6 +36,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <receiver android:name=".AlarmReceiver"/>
+
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true"
@@ -51,6 +55,10 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ui.activities.AddEditReminderActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.activities.ReminderActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>
 

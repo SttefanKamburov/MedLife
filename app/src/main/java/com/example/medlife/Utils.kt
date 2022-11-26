@@ -27,7 +27,15 @@ class Utils {
     companion object{
         const val INTENT_TRANSFER_MEDICATION_ID = "medication_id"
         const val INTENT_TRANSFER_REMINDER_ID   = "reminder_id";
+        const val INTENT_TRANSFER_REMINDERS     = "reminders"
+
         const val DATE_FORMAT_SLASHES           = "dd/MM/yyyy"
+
+        const val NOTIFICATION_CHANNEL_ID       = "med_life_notification_channel_id"
+        const val NOTIFICATION_CHANNEL_NAME     = "Med Life Notifications"
+        const val NEXT_ALARM_TIME_MILLIS        = "next_alarm_time_millis"
+        const val ALARM_REQUEST_CODE            = "alarm_request_code"
+        const val NOTIFICATION_ID               = "notification_id"
 
         fun convertTimestampToDate(timestamp: Long?): String {
             val dateFormat = SimpleDateFormat(DATE_FORMAT_SLASHES, Locale.US)

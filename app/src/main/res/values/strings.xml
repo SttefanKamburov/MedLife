@@ -56,4 +56,6 @@
     <string name="add_new_time">Add new time</string>
     <string name="you_need_to_take_the_following_medications_colons">You need to take the following medications:</string>
     <string name="alarm_permission_text">Please allow the app to set alarms in order for it to work properly.</string>
+    <string name="reminders">Reminders</string>
+    <string name="medications_for">Medications for</string>
 </resources>

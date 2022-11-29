@@ -11,12 +11,10 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.provider.MediaStore
 import android.widget.ImageView
-import androidx.annotation.NonNull
 import androidx.core.graphics.drawable.DrawableCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,9 +25,11 @@ class Utils {
     companion object{
         const val INTENT_TRANSFER_MEDICATION_ID = "medication_id"
         const val INTENT_TRANSFER_REMINDER_ID   = "reminder_id";
-        const val INTENT_TRANSFER_REMINDERS     = "reminders"
+        const val INTENT_TRANSFER_MEDICATIONS   = "medications"
+        const val INTENT_TRANSFER_TIMESTAMP     = "timestamp"
 
         const val DATE_FORMAT_SLASHES           = "dd/MM/yyyy"
+        const val DATE_FORMAT_TIME              = "HH:mm"
 
         const val NOTIFICATION_CHANNEL_ID       = "med_life_notification_channel_id"
         const val NOTIFICATION_CHANNEL_NAME     = "Med Life Notifications"
@@ -39,6 +39,19 @@ class Utils {
 
         fun convertTimestampToDate(timestamp: Long?): String {
             val dateFormat = SimpleDateFormat(DATE_FORMAT_SLASHES, Locale.US)
+            return try {
+                val calendar = Calendar.getInstance()
+                if (timestamp != null) {
+                    calendar.timeInMillis = timestamp
+                }
+                dateFormat.format(calendar.time)
+            } catch (e: java.lang.Exception) {
+                ""
+            }
+        }
+
+        fun convertTimestampToTime(timestamp: Long?): String {
+            val dateFormat = SimpleDateFormat(DATE_FORMAT_TIME, Locale.US)
             return try {
                 val calendar = Calendar.getInstance()
                 if (timestamp != null) {

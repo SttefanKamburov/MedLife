@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android           ="http://schemas.android.com/apk/res/android"
+    android:layout_width    ="match_parent"
+    android:layout_height   ="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar_layout"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id              ="@+id/header_layout"
+        android:layout_width    ="match_parent"
+        android:layout_height   ="wrap_content"
+        android:orientation     ="vertical"
+        android:layout_below    ="@id/appbar_layout"
+        android:background      ="@color/white"
+        android:padding         ="16dp">
+
+        <TextView
+            android:layout_width        ="match_parent"
+            android:layout_height       ="wrap_content"
+            android:gravity             ="center"
+            android:textSize            ="16sp"
+            android:text                ="@string/medications_for"
+            android:textColor           ="@color/black"
+            android:fontFamily          ="sans-serif-medium"/>
+
+        <TextView
+            android:id                  ="@+id/date_text"
+            android:layout_width        ="match_parent"
+            android:layout_height       ="wrap_content"
+            android:gravity             ="center"
+            android:textSize            ="20sp"
+            android:textColor           ="@color/black"
+            android:layout_marginTop    ="8dp"
+            android:fontFamily          ="sans-serif-medium"/>
+
+        <TextView
+            android:id                  ="@+id/time_text"
+            android:layout_width        ="match_parent"
+            android:layout_height       ="wrap_content"
+            android:gravity             ="center"
+            android:textSize            ="32sp"
+            android:textColor           ="@color/black"
+            android:layout_marginTop    ="5dp"
+            android:fontFamily          ="sans-serif-medium"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id              ="@+id/medications_recyclerview"
+        android:layout_width    ="match_parent"
+        android:layout_height   ="match_parent"
+        android:layout_below    ="@id/header_layout"/>
+
+</RelativeLayout>

@@ -57,7 +57,7 @@ class AlarmReceiver : BroadcastReceiver() {
             }
 
             if(remindersToShow.isNotEmpty()) {
-                showNotification(context, remindersToShow, notificationId)
+                showNotification(context, remindersToShow, calendar.timeInMillis, notificationId)
                 preferences.edit().putInt(Utils.NOTIFICATION_ID, notificationId + 1).apply()
             }
 
@@ -78,12 +78,18 @@ class AlarmReceiver : BroadcastReceiver() {
         }.start()
     }
 
-    private fun showNotification(context: Context, remindersToShow : ArrayList<Reminder>, notificationId : Int){
+    private fun showNotification(context: Context, remindersToShow : ArrayList<Reminder>, timestamp: Long, notificationId : Int){
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        val medications = arrayListOf<Long>()
+        for(reminder in remindersToShow){
+            medications.add(reminder.medicationId)
+        }
 
         val intent = Intent(context, ReminderActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        intent.putExtra(Utils.INTENT_TRANSFER_REMINDERS, remindersToShow)
+        intent.putExtra(Utils.INTENT_TRANSFER_MEDICATIONS, medications)
+        intent.putExtra(Utils.INTENT_TRANSFER_TIMESTAMP, timestamp)
         val pendingIntent = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE)
 
         var message = context.getString(R.string.you_need_to_take_the_following_medications_colons)

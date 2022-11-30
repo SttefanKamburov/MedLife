@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -24,6 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -141,6 +143,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 showAllowAlarmsDialog()
             }
         }
+
+        val nextAlarm = PreferenceManager.getDefaultSharedPreferences(this).getLong(Utils.NEXT_ALARM_TIME_MILLIS, 0)
+        if(nextAlarm > 0)
+            Toast.makeText(this, Utils.convertTimestampToDate(nextAlarm) + " " + Utils.convertTimestampToTime(nextAlarm), Toast.LENGTH_LONG).show()
     }
 
     private fun setNavigationButtons(page : Int){

@@ -143,10 +143,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 showAllowAlarmsDialog()
             }
         }
-
-        val nextAlarm = PreferenceManager.getDefaultSharedPreferences(this).getLong(Utils.NEXT_ALARM_TIME_MILLIS, 0)
-        if(nextAlarm > 0)
-            Toast.makeText(this, Utils.convertTimestampToDate(nextAlarm) + " " + Utils.convertTimestampToTime(nextAlarm), Toast.LENGTH_LONG).show()
     }
 
     private fun setNavigationButtons(page : Int){

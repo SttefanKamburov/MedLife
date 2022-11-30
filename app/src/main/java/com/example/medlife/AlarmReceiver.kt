@@ -38,14 +38,14 @@ class AlarmReceiver : BroadcastReceiver() {
             for(reminder in remindersListForToday){
                 if(db.reminderTimeDao().loadByReminderIdHourAndMinute(
                         reminder.id,
-                        calendar.get(Calendar.HOUR),
+                        calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE))
                         .isNotEmpty()
                 ){
                     val medication = db.medicationDao().loadById(reminder.medicationId)
                     if(medication != null){
                         val reminderTime = ReminderTime()
-                        reminderTime.hour = calendar.get(Calendar.HOUR)
+                        reminderTime.hour = calendar.get(Calendar.HOUR_OF_DAY)
                         reminderTime.minute = calendar.get(Calendar.MINUTE)
 
                         reminder.timesList.add(reminderTime)

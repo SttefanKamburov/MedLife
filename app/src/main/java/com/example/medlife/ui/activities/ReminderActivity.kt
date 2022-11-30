@@ -60,10 +60,8 @@ class ReminderActivity : AppCompatActivity() {
             runOnUiThread {
                 if(medicationsList.isEmpty())
                     finish()
-                else {
-                    medicationsList.add(0, Medication())
+                else
                     adapter.notifyDataSetChanged()
-                }
             }
         }.start()
     }

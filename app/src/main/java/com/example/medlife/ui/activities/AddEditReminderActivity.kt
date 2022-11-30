@@ -242,13 +242,13 @@ class AddEditReminderActivity : AppCompatActivity(), View.OnClickListener {
                 calendar.set(year, monthOfYear, dayOfMonth)
 
                 if (dateEdt === dateFromEdt) {
-                    calendar.set(Calendar.HOUR, 0)
+                    calendar.set(Calendar.HOUR_OF_DAY, 0)
                     calendar.set(Calendar.MINUTE, 0)
                     calendar.set(Calendar.SECOND, 0)
                     fromDateMillis = calendar.timeInMillis
                 }
                 else {
-                    calendar.set(Calendar.HOUR, 23)
+                    calendar.set(Calendar.HOUR_OF_DAY, 23)
                     calendar.set(Calendar.MINUTE, 59)
                     calendar.set(Calendar.SECOND, 59)
                     toDateMillis = calendar.timeInMillis
@@ -324,7 +324,7 @@ class AddEditReminderActivity : AppCompatActivity(), View.OnClickListener {
 
                 val calendar = Calendar.getInstance()
                 calendar.timeInMillis = fromDateMillis
-                calendar.set(Calendar.HOUR, time.hour)
+                calendar.set(Calendar.HOUR_OF_DAY, time.hour)
                 calendar.set(Calendar.MINUTE, time.minute)
                 calendar.set(Calendar.SECOND, 0)
 

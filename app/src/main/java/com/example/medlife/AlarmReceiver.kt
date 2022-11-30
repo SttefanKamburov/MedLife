@@ -56,10 +56,10 @@ class AlarmReceiver : BroadcastReceiver() {
                 }
             }
 
-            if(remindersToShow.isNotEmpty()) {
+            //if(remindersToShow.isNotEmpty()) {
                 showNotification(context, remindersToShow, calendar.timeInMillis, notificationId)
                 preferences.edit().putInt(Utils.NOTIFICATION_ID, notificationId + 1).apply()
-            }
+            //}
 
             calendar.add(Calendar.MINUTE, 1)
             val nextAlarm = db.alarmDao().getNextAlarmTimestamp(calendar.timeInMillis)
@@ -106,10 +106,10 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentTitle(context.getString(R.string.app_name))
             .setContentText(message)
             .setContentIntent(pendingIntent)
-        try {
+        //try {
             notificationManager.notify(notificationId, builder.build())
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        //} catch (e: Exception) {
+         //   e.printStackTrace()
+        //}
     }
 }

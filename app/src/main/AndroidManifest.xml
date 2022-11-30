@@ -60,7 +60,7 @@
         <activity
             android:name=".ui.activities.ReminderActivity"
             android:screenOrientation="portrait"
-            android:exported="false"/>
+            android:exported="true"/>
 
     </application>
 
